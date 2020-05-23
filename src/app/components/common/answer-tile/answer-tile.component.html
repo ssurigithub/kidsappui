@@ -1,0 +1,29 @@
+<div
+  [appValidateResponse]="correctAnswer"
+  [selectedOption]="selectedOption"
+  class="Answer card text-white bg-warning mb-3"
+  style="max-width: 18rem;"
+>
+  <div
+    class="{{ 'card-header container answer' + selectedOption + '-header' }}"
+  >
+    <h5>
+      {{ header }}
+      <small class="float-md-right">
+        <i id="up" class="invisible fa fa-lg" style="color: whitesmoke;"></i>
+      </small>
+    </h5>
+  </div>
+  <div class="card-body">
+    <h5 class="{{ 'Answer' + selectedOption + ' card-text' }}">
+      {{ Answer.answer }}
+    </h5>
+  </div>
+</div>
+
+<!-- // selectedOption 
+        class: Answer1
+        answer1 - value
+        class answer1-header
+        correctanswer
+-->

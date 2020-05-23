@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row bg-warning text-white">
+    <div class="col-md-2 bg-white"></div>
+    <div class="col-md-7 justify-content-center text-center font-weight-bold">
+      <span id="currentMonth" class="text-center text-uppercase"
+        >{{ calendar.date.currentMonth | date: "MMMM" }}</span
+      >
+      -
+      <span id="currentYear"
+        >{{ calendar.date.currentMonth | date: "yyyy" }}</span
+      >
+    </div>
+    <div class="col-md-3 bg-white"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 bg-white"></div>
+    <div class="col-md-1 border bg-dark text-white">Sun</div>
+    <div class="col-md-1 border bg-dark text-white">Mon</div>
+    <div class="col-md-1 border bg-dark text-white">Tue</div>
+    <div class="col-md-1 border bg-dark text-white">Wed</div>
+    <div class="col-md-1 border bg-dark text-white">Thu</div>
+    <div class="col-md-1 border bg-dark text-white">Fri</div>
+    <div class="col-md-1 border bg-dark text-white">Sat</div>
+    <div class="col-md-3 bg-white"></div>
+  </div>
+  <div id="days" class="row">
+    <div class="col-md-2 bg-white"></div>
+
+    <div
+      *ngFor="let d of start; let index = index"
+      [ngClass]="applyClasses(d)"
+    ></div>
+    <ng-container *ngFor="let date of dates; let index = index">
+      <div [ngClass]="applyDateClasses(date)">
+        {{ date }}
+      </div>
+      <ng-container *ngIf="getDay != 0 && date != 1; else elseBlock">
+        <ng-container *ngIf="(getDay + date) % 7 == 0">
+          <div class="col-md-3"></div>
+          <div class="col-md-2"></div>
+        </ng-container>
+      </ng-container>
+      <ng-template #elseBlock>
+        <ng-container *ngIf="(getDay + date) % 7 == 0">
+          <div class="col-md-3"></div>
+          <div class="col-md-2"></div>
+        </ng-container>
+      </ng-template>
+    </ng-container>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <app-question-bar [hint]="hint" [question]="question"></app-question-bar>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3" *ngFor="let answer of Answers">
+      <app-answer-tile [Answer]="answer"></app-answer-tile>
+    </div>
+  </div>
+</div>

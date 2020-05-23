@@ -1,0 +1,26 @@
+<div class="card text-white bg-dark mb-3">
+  <div class="card-header">
+    <i
+      id="questionSpeaker"
+      ngClass="fa fa-volume-up fa-lg"
+      style="color: tomato;"
+      (click)="utter(question)"
+    ></i>
+    <a routerLink="/" class="float-md-right">
+      <i ngClass="fa fa-step-forward fa-lg" style="color: tomato;"></i>
+    </a>
+  </div>
+  <div class="card-body">
+    <h4 id="question" class="card-title">{{ question }}</h4>
+  </div>
+
+  <div class="card-footer">
+    <i
+      id="questionSpeaker"
+      ngClass="fa fa-volume-up fa-lg"
+      style="color: tomato;"
+      (click)="utter(hint)"
+    ></i>
+    <p class="card-text float-right align-middle">{{ hint }}</p>
+  </div>
+</div>
