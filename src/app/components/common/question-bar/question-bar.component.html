@@ -1,26 +1,47 @@
 <div class="card text-white bg-dark mb-3">
   <div class="card-header">
-    <i
-      id="questionSpeaker"
-      ngClass="fa fa-volume-up fa-lg"
-      style="color: tomato;"
-      (click)="utter(question)"
-    ></i>
-    <a routerLink="/" class="float-md-right">
-      <i ngClass="fa fa-step-forward fa-lg" style="color: tomato;"></i>
-    </a>
+    <div class="row">
+      <div class="col-md-1">
+        <i
+          id="questionSpeaker"
+          ngClass="fa fa-volume-up fa-lg"
+          style="color: tomato;"
+          (click)="utter(question.question)"
+        ></i>
+      </div>
+      <div class="col-md-10">
+        <h4 id="question" class="card-title">{{ question.question }}</h4>
+      </div>
+      <div class="col-md-1">
+        <a routerLink="/" class="float-md-right">
+          <i ngClass="fa fa-step-forward fa-lg" style="color: tomato;"></i>
+        </a>
+      </div>
+    </div>
   </div>
   <div class="card-body">
-    <h4 id="question" class="card-title">{{ question }}</h4>
+    <div class="row">
+      <div class="col-md-3" *ngFor="let answer of Answers">
+        <app-answer-tile [Answer]="answer"></app-answer-tile>
+      </div>
+    </div>
   </div>
 
   <div class="card-footer">
-    <i
-      id="questionSpeaker"
-      ngClass="fa fa-volume-up fa-lg"
-      style="color: tomato;"
-      (click)="utter(hint)"
-    ></i>
-    <p class="card-text float-right align-middle">{{ hint }}</p>
+    <div class="row">
+      <div class="col-md-1">
+        <i
+          id="questionSpeaker"
+          ngClass="fa fa-volume-up fa-lg"
+          style="color: tomato;"
+          (click)="utter(question.hint)"
+        ></i>
+      </div>
+      <div class="col-md-11">
+        <p class="card-text small float-left align-middle">
+          {{ question.hint }}
+        </p>
+      </div>
+    </div>
   </div>
 </div>

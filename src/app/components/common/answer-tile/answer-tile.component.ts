@@ -17,6 +17,7 @@ export class AnswerTileComponent implements OnInit {
   header: string;
 
   ngOnInit(): void {
+    console.log(this.Answer);
     this.correctAnswer = this.Answer.correctAnswer;
     this.selectedOption = this.Answer.selectedOption;
     this.header = this.Answer.header;

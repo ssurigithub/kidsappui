@@ -1,13 +1,9 @@
+import { Question } from './Question';
+
 export class Calendar {
   category: string;
   date: CalendarDate;
-  question: string;
-  Answer1: string;
-  Answer2: string;
-  Answer3: string;
-  Answer4: string;
-  Correct: number;
-  hint: string;
+  question: Question;
 }
 
 export class CalendarDate {
