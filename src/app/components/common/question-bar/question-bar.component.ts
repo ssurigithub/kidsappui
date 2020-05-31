@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Question } from 'src/app/Models/Question';
 import { Answer } from 'src/app/Models/Answer';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DataService } from 'src/app/services/common/data.service';
+import { RoutePath, RouteCategory, SkillLevel } from 'src/app/Models/Route';
 
 @Component({
   selector: 'app-question-bar',
@@ -8,51 +11,22 @@ import { Answer } from 'src/app/Models/Answer';
   styleUrls: ['./question-bar.component.styl'],
 })
 export class QuestionBarComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private dataService: DataService
+  ) {}
 
   @Input()
   question: Question;
   correctAnswer: string;
   Answers = [];
-  answer1: Answer;
-  answer2: Answer;
-  answer3: Answer;
-  answer4: Answer;
+
+  @Output()
+  updateRoot: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit(): void {
-    console.log(this.question);
-
-    this.answer1 = {
-      answer: this.question.answer1,
-      selectedOption: '1',
-      correctAnswer: this.question.correct,
-      header: 'A',
-    };
-    this.answer2 = {
-      answer: this.question.answer2,
-      selectedOption: '2',
-      correctAnswer: this.question.correct,
-      header: 'B',
-    };
-    this.answer3 = {
-      answer: this.question.answer3,
-      selectedOption: '3',
-      correctAnswer: this.question.correct,
-      header: 'C',
-    };
-    this.answer4 = {
-      answer: this.question.answer4,
-      selectedOption: '4',
-      correctAnswer: this.question.correct,
-      header: 'D',
-    };
-    this.Answers = [
-      ...this.Answers,
-      this.answer1,
-      this.answer2,
-      this.answer3,
-      this.answer4,
-    ];
+    this.Answers = this.question.answers;
   }
 
   speak() {
@@ -61,5 +35,40 @@ export class QuestionBarComponent implements OnInit {
 
   utter(txt) {
     speechSynthesis.speak(new SpeechSynthesisUtterance(txt));
+  }
+
+  updateRootFromParent(x: string) {
+    console.log('inside question component: the value of x is ' + x);
+    this.updateRoot.emit(x);
+  }
+
+  navigate() {
+    console.log(this.router.config);
+    const routePaths: RoutePath[] = this.router.config.map((x) => {
+      if (x.path != '') {
+        var route: RoutePath = new RoutePath();
+        route.path = x.path;
+        route.category = this.getRouteCategory(x.path.toUpperCase());
+        route.level = SkillLevel.LevelOne;
+        return route;
+      }
+    });
+
+    const path = this.dataService.getRoute(routePaths.filter(Boolean));
+    console.log(path);
+
+    this.router.navigateByUrl(path.path);
+  }
+
+  getRouteCategory(path: string) {
+    switch (path) {
+      case 'dates/calendar': {
+        return RouteCategory.Dates;
+      }
+
+      case 'numbers/missing': {
+        return RouteCategory.Numbers;
+      }
+    }
   }
 }

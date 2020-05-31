@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Answer } from 'src/app/Models/Answer';
 
 @Component({
@@ -12,14 +12,21 @@ export class AnswerTileComponent implements OnInit {
   @Input()
   Answer: Answer;
 
-  correctAnswer: number;
+  @Output()
+  updateRoot: EventEmitter<string> = new EventEmitter<string>();
+
+  correctAnswer: number[];
   selectedOption: string;
   header: string;
 
   ngOnInit(): void {
-    console.log(this.Answer);
-    this.correctAnswer = this.Answer.correctAnswer;
+    this.correctAnswer = this.Answer.correct;
     this.selectedOption = this.Answer.selectedOption;
     this.header = this.Answer.header;
+  }
+
+  handleUpdateParent(x: any) {
+    console.log('In answer tile  component: the value emitted is ' + x);
+    this.updateRoot.emit(x);
   }
 }

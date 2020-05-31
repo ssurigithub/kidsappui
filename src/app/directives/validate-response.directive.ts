@@ -4,6 +4,8 @@ import {
   Input,
   HostListener,
   Renderer2,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 
 @Directive({
@@ -18,16 +20,15 @@ export class ValidateResponseDirective {
   @Input('selectedOption')
   selectedOption: string;
 
+  @Output('updateRootParent')
+  updateRootParent: EventEmitter<string> = new EventEmitter<string>();
+
   @HostListener('click')
   onClick() {
     // get the native element
-    console.log(this.el.nativeElement);
-    console.log(this.el.nativeElement.getAttribute('date-attr'));
-    console.log(this.validResponse);
-    console.log(this.selectedOption);
 
     // this.renderer.removeClass(this.el.nativeElement, 'bg-warning');
-    if (this.validResponse == this.selectedOption) {
+    if (this.validResponse.includes(this.selectedOption)) {
       this.speak('Wow You are doing great');
       this.renderer.removeClass(this.el.nativeElement, 'bg-warning');
       this.renderer.addClass(this.el.nativeElement, 'bg-success');
@@ -49,6 +50,7 @@ export class ValidateResponseDirective {
       this.renderer.removeClass(element, 'invisible');
       this.renderer.addClass(element, 'fa-thumbs-down');
     }
+    this.updateRootParent.emit(this.selectedOption);
   }
 
   speak(text) {

@@ -1,0 +1,50 @@
+<!-- <div class="container">
+  <div class="card-deck">
+    <div
+      class="card text-white bg-warning"
+      *ngFor="let m of missingNumbers.data"
+      style="min-width: 4rem;"
+    >
+      <div class="card-body">
+        <p class="card-text">
+          {{ m.n }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="container">
+  <div class="row d-flex">
+    <div class="col-md-1 m-3" *ngFor="let m of missingNumbers.data">
+      <div
+        [ngClass]="
+          !m.hidden
+            ? 'card text-white bg-warning'
+            : 'card text-white bg-secondary text-black'
+        "
+        style="min-width: 5rem;"
+      >
+        <div class="card-body">
+          <p *ngIf="!m.hidden; else elseBlock" class="card-text">
+            {{ m.n }}
+          </p>
+          <ng-template #elseBlock>
+            <p class="card-text">
+              ??
+            </p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <app-question-bar
+        [question]="question"
+        (updateRoot)="updateRootFromParent($event)"
+      ></app-question-bar>
+    </div>
+  </div>
+</div>

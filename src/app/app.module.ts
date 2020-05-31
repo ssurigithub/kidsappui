@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ValidateResponseDirective } from './directives/validate-response.directive';
 import { QuestionBarComponent } from './components/common/question-bar/question-bar.component';
 import { AnswerTileComponent } from './components/common/answer-tile/answer-tile.component';
+import { MissingComponent } from './components/numbers/missing/missing.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AnswerTileComponent } from './components/common/answer-tile/answer-tile
     ValidateResponseDirective,
     QuestionBarComponent,
     AnswerTileComponent,
+    MissingComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

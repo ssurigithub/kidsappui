@@ -22,7 +22,10 @@
   <div class="card-body">
     <div class="row">
       <div class="col-md-3" *ngFor="let answer of Answers">
-        <app-answer-tile [Answer]="answer"></app-answer-tile>
+        <app-answer-tile
+          [Answer]="answer"
+          (updateRoot)="updateRootFromParent($event)"
+        ></app-answer-tile>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 export class Answer {
   answer: string;
   selectedOption: string;
-  correctAnswer: number;
+  correct: number[];
   header: string;
 }

@@ -1,6 +1,7 @@
 <div
   [appValidateResponse]="correctAnswer"
   [selectedOption]="selectedOption"
+  (updateRootParent)="handleUpdateParent($event)"
   class="Answer card text-white bg-warning mb-3"
   style="max-width: 18rem;"
 >
